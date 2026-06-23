@@ -104,6 +104,13 @@
   </footer>
 </div>
 
+<div id="proof-modal" class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/80 p-4">
+  <button type="button" id="proof-modal-close" class="absolute top-4 right-4 text-3xl leading-none text-white/90 hover:text-white">×</button>
+  <div class="max-w-full max-h-full overflow-hidden rounded-3xl border border-white/10 bg-slate-950/95 p-4">
+    <img id="proof-modal-img" alt="Proof image" class="max-w-[90vw] max-h-[80vh] object-contain rounded-xl" />
+  </div>
+</div>
+
 <script>
 /* ---------------- DATA ---------------- */
 const GITHUB_USERNAME = "p1aegg";
@@ -117,8 +124,9 @@ const LINKS = [
 ];
 
 const CURRENT_STAFF = [
-  { serverName:"Apex Tiers", role:"SS VERIFIED", color:"#e879f9", discord:"", imgur:"https://i.imgur.com/cONhi8t.png" },
-  { serverName:"Sunlight Tiers", role:"HELPER + HEAD SS", color:"#4ade80", discord:"", imgur:"https://i.imgur.com/frWti2l.png" },
+  { serverName:"Apex Tiers", role:"SS VERIFIED", color:"#e879f9", discord:"https://discord.gg/kdus8ySfGr", imgur:"https://i.imgur.com/cONhi8t.png" },
+  { serverName:"Sunlight Tiers", role:"HELPER + HEAD SS", color:"#4ade80", discord:"https://discord.gg/UrnCh9ZT2V", imgur:"https://i.imgur.com/frWti2l.png" },
+  { serverName:"Astral Tiers", role:"SS VERIFIED", color:"#4ade80", discord:"https://discord.gg/uqXAM3stsm", imgur:"https://imgur.com/8byEEtM.png" },
 ];
 
 const PAST_STAFF = [
@@ -190,13 +198,13 @@ function staffCard(e){
       <li class="flex items-center justify-between text-xs">
         <span class="text-zinc-400">${escapeHtml(t.name)}</span>
         <div class="flex items-center gap-2">
-          <a href="${t.discord}" target="_blank" rel="noreferrer" class="text-zinc-500 hover:text-indigo-400" title="Discord"><i class="fa-brands fa-discord"></i></a>
-          <a href="${t.imgur}" target="_blank" rel="noreferrer" class="text-zinc-500 hover:text-emerald-400" title="Proof"><i class="fa-solid fa-image"></i></a>
+          ${t.discord?`<a href="${t.discord}" target="_blank" rel="noreferrer" class="text-zinc-500 hover:text-indigo-400" title="Discord"><i class="fa-brands fa-discord"></i></a>`:""}
+          ${t.imgur?`<button type="button" data-imgur="${t.imgur}" class="proof-btn text-zinc-500 hover:text-emerald-400" title="Proof"><i class="fa-solid fa-image"></i></button>`:""}
         </div>
       </li>`).join("")}</ul>` : "";
   const buttons = (!e.tiers && (e.discord||e.imgur)) ? `<div class="mt-4 flex items-center gap-2">
     ${e.discord?`<a href="${e.discord}" target="_blank" rel="noreferrer" class="inline-flex items-center gap-1.5 text-xs rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-1.5 text-zinc-300 hover:bg-white/[0.08]"><i class="fa-brands fa-discord"></i> Discord</a>`:""}
-    ${e.imgur?`<a href="${e.imgur}" target="_blank" rel="noreferrer" class="inline-flex items-center gap-1.5 text-xs rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-1.5 text-zinc-300 hover:bg-white/[0.08]"><i class="fa-solid fa-image"></i> Proof</a>`:""}
+    ${e.imgur?`<button type="button" data-imgur="${e.imgur}" class="proof-btn inline-flex items-center gap-1.5 text-xs rounded-md border border-white/10 bg-white/[0.03] px-2.5 py-1.5 text-zinc-300 hover:bg-white/[0.08]"><i class="fa-solid fa-image"></i> Proof</button>`:""}
   </div>` : "";
   return `<div class="group relative rounded-2xl border border-white/10 bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-5 hover:border-white/20 hover:from-white/[0.06] transition" style="box-shadow:inset 0 1px 0 0 ${e.color}10">
     <div class="flex items-start justify-between gap-3">
@@ -210,9 +218,22 @@ function staffCard(e){
     ${tiers}${buttons}
   </div>`;
 }
+function bindProofButtons(){
+  document.querySelectorAll(".proof-btn").forEach(btn=>{
+    if(btn.dataset.bound) return;
+    btn.dataset.bound = "true";
+    btn.addEventListener("click",()=>{
+      const url = btn.dataset.imgur;
+      if(!url) return;
+      $("#proof-modal-img").src = url;
+      $("#proof-modal").classList.remove("hidden");
+    });
+  });
+}
 function renderStaff(){
   const list = staffFilter==="current"?CURRENT_STAFF : staffFilter==="past"?PAST_STAFF : [...CURRENT_STAFF,...PAST_STAFF];
   $("#staff-grid").innerHTML = list.map(staffCard).join("");
+  bindProofButtons();
   $("#staff-counts").textContent = `${CURRENT_STAFF.length} current · ${PAST_STAFF.length} past`;
   $("#staff-filters").innerHTML = ["current","past","all"].map(k=>`
     <button data-filter="${k}" class="px-3 py-1.5 rounded-lg text-xs font-medium border transition ${staffFilter===k?"bg-white text-black border-white":"bg-white/[0.03] text-zinc-400 border-white/10 hover:bg-white/[0.08] hover:text-zinc-200"}">${k==="current"?"Current":k==="past"?"Past":"All"}</button>`).join("");
@@ -250,6 +271,23 @@ function renderRepos(){
       </div>
     </a>`).join("");
 }
+
+function closeProofModal(){
+  $("#proof-modal").classList.add("hidden");
+  $("#proof-modal-img").src = "";
+}
+
+document.addEventListener("click", e=>{
+  if(e.target.closest("#proof-modal-close") || e.target.id==="proof-modal"){
+    closeProofModal();
+  }
+});
+
+document.addEventListener("keydown", e=>{
+  if(e.key==="Escape" && !$("#proof-modal").classList.contains("hidden")){
+    closeProofModal();
+  }
+});
 
 async function loadRepos(){
   const grid = $("#projects-grid");
