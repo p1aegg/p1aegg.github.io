@@ -125,20 +125,16 @@ const LINKS = [
 ];
 
 const CURRENT_STAFF = [
-  { serverName:"ShoreSMP", role:"SS VERIFIED", color:"#e879f9", discord:"", imgur:"" },
+  { serverName:"Minecraft Forensics", role:"SS VERIFIED", color:"#e879f9", discord:"https://discord.gg/wVn6G6Qz3x", imgur:"" },
+  { serverName:"McRoyale", role:"SS VERIFIED", color:"#e879f9", discord:"https://discord.gg/7NkV8bhPFr", imgur:"" },
+  { serverName:"ShoreSMP", role:"SS VERIFIED", color:"#e879f9", discord:"https://discord.gg/DqaAHcgxQ", imgur:"" },
   { serverName:"Lunar Tiers Crystal", role:"HEAD SS", color:"#e879f9", discord:"https://discord.gg/KrVJCyyFhn", imgur:"https://imgur.com/04v8ZRe.png" },
-  { serverName:"Sunlight Tiers", role:"HELPER + HEAD SS", color:"#e879f9", discord:"https://discord.gg/UrnCh9ZT2V", imgur:"https://i.imgur.com/frWti2l.png" },
-  { serverName:"Astral Tiers", role:"SS VERIFIED", color:"#4ade80", discord:"https://discord.gg/uqXAM3stsm", imgur:"https://imgur.com/8byEEtM.png" },
-  { serverName:"Solar Tierlist", role:"SS VERIFIED", color:"#4ade80", discord:"https://discord.gg/2eyfMhEAvx", imgur:"https://imgur.com/LDsaEab.png" },
-  { serverName:"Nexus Vanilla Community", role:"SS VERIFIED", color:"#4ade80", discord:"", imgur:"" },
   { serverName:"Vanilla Community", role:"HEAD SS", color:"#e879f9", discord:"https://discord.gg/hwDTFe4h86", imgur:"https://imgur.com/afweLo1.png" },
-  { serverName:"Intel Tiers", role:"REGULATOR + HEAD SS", color:"#e879f9", discord:"", imgur:"" },
-  { serverName:"Coasta Vanilla Tiers", role:"HEAD SS", color:"#e879f9", discord:"", imgur:"" },
-  { serverName:"Vanilla Empire", role:"SR MOD", color:"#e879f9", discord:"", imgur:"" },
-  { serverName:"VanillaPvP", role:"SS VERIFIED", color:"#4ade80", discord:"", imgur:"" },
-  { serverName:"Tiers Core", role:"SS VERIFIED", color:"#4ade80", discord:"", imgur:"" },
-  { serverName:"Bloom Tiers", role:"SS VERIFIED", color:"#4ade80", discord:"", imgur:"" },
-  { serverName:"Crystal Havoc", role:"SS Verified", color:"#4ade80", discord:"", imgur:"" },
+  { serverName:"Coasta Vanilla Tiers", role:"HEAD SS", color:"#e879f9", discord:"https://discord.gg/jfPqntVQFY", imgur:"" },
+  { serverName:"Vanilla Empire", role:"SR MOD", color:"#e879f9", discord:"https://discord.gg/TsNWSdmftt", imgur:"" },
+  { serverName:"Minecraft Wager Hub", role:"SS VERIFIED", color:"#e879f9", discord:"", imgur:"" },
+  { serverName:"Vanilla Ranked", role:"SS VERIFIED", color:"#e879f9", discord:"https://discord.gg/8z8KFskNgA", imgur:"" },
+  { serverName:"Autumn Tiers", role:"SS VERIFIED", color:"#e879f9", discord:"https://discord.gg/ASxxh64bMw", imgur:"" },
 ];
 
 const PAST_STAFF = [
@@ -155,6 +151,17 @@ const PAST_STAFF = [
   { serverName:"Lunar Tiers Sword", role:"HEAD SS", color:"#e879f9", discord:"https://discord.gg/gPYdEkVPnz", imgur:"https://imgur.com/njb99GI.png" },
   { serverName:"Larp Tiers", role:"SS VERIFIED", color:"#4ade80", discord:"", imgur:"" },
   { serverName:"Silence VTL", role:"SS VERIFIED", color:"#4ade80", discord:"https://discord.gg/5fQjwy28xf", imgur:"https://imgur.com/kiZFdIn.png" },
+  { serverName:"Sunlight Tiers", role:"HELPER + HEAD SS", color:"#e879f9", discord:"https://discord.gg/UrnCh9ZT2V", imgur:"https://i.imgur.com/frWti2l.png" },
+  { serverName:"Nexus Vanilla Community", role:"SS VERIFIED", color:"#4ade80", discord:"", imgur:"" },
+  { serverName:"Astral Tiers", role:"SS VERIFIED", color:"#4ade80", discord:"https://discord.gg/uqXAM3stsm", imgur:"https://imgur.com/8byEEtM.png" },
+  { serverName:"Solar Tierlist", role:"SS VERIFIED", color:"#4ade80", discord:"https://discord.gg/2eyfMhEAvx", imgur:"https://imgur.com/LDsaEab.png" },
+  { serverName:"Intel Tiers", role:"REGULATOR + HEAD SS", color:"#e879f9", discord:"", imgur:"" },
+  { serverName:"VanillaPvP", role:"SS VERIFIED", color:"#4ade80", discord:"", imgur:"" },
+  { serverName:"Tiers Core", role:"SS VERIFIED", color:"#4ade80", discord:"", imgur:"" },
+  { serverName:"Bloom Tiers", role:"SS VERIFIED", color:"#4ade80", discord:"", imgur:"" },
+  { serverName:"Crystal Havoc", role:"SS Verified", color:"#4ade80", discord:"", imgur:"" },
+  { serverName:"Minecraft CPvP Community", role:"SS Verified", color:"#4ade80", discord:"", imgur:"" },
+  { serverName:"Intel Tiers", role:"REGULATOR + HEAD SS", color:"#e879f9", discord:"", imgur:"" },
 ];
 
 const LANG_COLORS = { TypeScript:"#3178c6", JavaScript:"#f1e05a", Python:"#3572A5", Java:"#b07219", HTML:"#e34c26", CSS:"#563d7c", Shell:"#89e051", Go:"#00ADD8", Rust:"#dea584", C:"#555555", "C++":"#f34b7d" };
@@ -166,10 +173,10 @@ const escapeHtml = s => String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;"
 
 function roleEmoji(r){ const u=r.toUpperCase();
   if(u.includes("OWNER"))return"👑"; if(u.includes("HEAD STAFF"))return"🛡️";
-  if(u.includes("HEAD SS"))return"🎯"; if(u.includes("MANAGER"))return"⚙️";
+  if(u.includes("HEAD SS"))return"🖥️"; if(u.includes("MANAGER"))return"⚙️";
   if(u.includes("ADMIN"))return"🔧"; if(u.includes("MOD"))return"🔨";
   if(u.includes("INTEGRITY"))return"⚖️"; if(u.includes("TIERIST"))return"🏆";
-  if(u.includes("VERIFIED"))return"✅"; if(u.includes("SCREENSHARER"))return"🖥️";
+  if(u.includes("VERIFIED"))return"🖥️"; if(u.includes("SCREENSHARER"))return"🖥️";
   return"✨";
 }
 
